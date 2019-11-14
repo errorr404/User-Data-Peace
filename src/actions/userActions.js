@@ -15,7 +15,6 @@ export const fetchUsers = () => {
 };
 
 const addUsersToStore = (users) => {
-  console.log(users);
   const action = {
     type: ADD_USERS_TO_STATE,
     payload: {
