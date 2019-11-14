@@ -15,10 +15,9 @@ class Table extends React.Component {
   componentDidMount() {
     const { rowData } = this.props;
     this.setState({ rowData });
-    console.log('rowData', rowData);
   }
   componentDidUpdate(prevProps) {
-    if (prevProps.rowData.length < this.props.rowData.length) {
+    if (prevProps.rowData !== this.props.rowData) {
       this.setState({ rowData: this.props.rowData });
     }
   }
@@ -40,6 +39,7 @@ class Table extends React.Component {
   render() {
     const { headers } = this.props;
     const { rowData, clickedRow } = this.state;
+    console.log(rowData);
     console.log(this.props);
     return (
       <table className="tableStyle">

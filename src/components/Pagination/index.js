@@ -5,14 +5,14 @@ import { updateCurrentPage } from '../../actions/paginationAction';
 import './pagination.scss';
 
 const Pagination = (props) => {
-  const { totalItems } = props;
-  const [startingPageNumber, setStartingPageNumber] = useState(1);
-  const [endingPageNumber, setEndingPageNumber] = useState(9);
-  const [currentPage, setCurrentPage] = useState(1);
+  const { totalItems, currentPage } = props;
+  const startingPage = currentPage>9 ? currentPage-currentPage%9 : currentPage;
+  console.log(startingPage);
+  const [startingPageNumber, setStartingPageNumber] = useState(startingPage);
+  const [endingPageNumber, setEndingPageNumber] = useState(startingPage+8);
 
   const setCurrentPageNumber = (number) => {
     props.updateCurrentPage(number);
-    setCurrentPage(number);
   };
   const updateBackButtonRange = () => {
     setCurrentPageNumber(startingPageNumber - 9);
@@ -68,4 +68,10 @@ const Pagination = (props) => {
     </div>
   );
 };
-export default connect(null, { updateCurrentPage })(Pagination);
+const mapStateToProps = (state) => {
+    return{
+        currentPage: state.currentPage,
+    }
+}
+
+export default connect(mapStateToProps, { updateCurrentPage })(Pagination);
