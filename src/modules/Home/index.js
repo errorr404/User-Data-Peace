@@ -5,6 +5,7 @@ import { updateCurrentPage } from '../../actions/paginationAction';
 import Table from '../../components/Table';
 import Pagination from '../../components/Pagination';
 import './home.scss';
+import Search from '../../components/Search';
 class Home extends React.Component {
   componentDidMount() {
     if (this.props.users.length > 0) return;
@@ -16,17 +17,25 @@ class Home extends React.Component {
     this.props.updateCurrentPage(currentPage + updatePageBy);
   };
   render() {
-    let { users, currentPage } = this.props;
-    const totalUser = users.length;
-    users = users.slice((currentPage - 1) * 5, (currentPage - 1) * 5 + 5);
-    console.log(users);
+    const { users, currentPage, searchedUsers } = this.props;
+    const showUserResult = searchedUsers.length>0 ? searchedUsers : users;
+    const totalUser = showUserResult.length;
+    const slicedUser = showUserResult.slice((currentPage - 1) * 5, (currentPage - 1) * 5 + 5);
+    console.log(slicedUser);
     return (
       <div className="home">
-        <div>Search</div>
+        <div>
+        <Search />
+        <span>
+            {
+               `${ (currentPage - 1) * 5+1 } - ${ totalUser>5 ?(currentPage - 1) * 5 + 5 : totalUser   } of ${totalUser}`
+            }
+        </span>
+        </div>
         <div style={{ maxWidth: '100vw' }}>
           <Table
-            headers={Object.keys(users.length > 0 && users[0])}
-            rowData={users}
+            headers={Object.keys(slicedUser.length > 0 && slicedUser[0])}
+            rowData={slicedUser}
           />
         </div>
         <div className="home__navigation">
@@ -51,8 +60,9 @@ class Home extends React.Component {
 const mapStateToProps = (state) => {
   console.log(state);
   return {
-    users: state.users,
-    currentPage: state.currentPage
+    users: state.users.allUsers,
+    currentPage: state.currentPage,
+    searchedUsers:state.users.searchedUsers,
   };
 };
 export default connect(mapStateToProps, { fetchUsers, updateCurrentPage })(

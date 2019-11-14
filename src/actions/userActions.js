@@ -1,4 +1,4 @@
-import { ADD_USERS_TO_STATE } from '../constant';
+import { ADD_USERS_TO_STATE, SEARCH_USERS } from '../constant';
 import { addError } from './errorAction';
 import axios from 'axios';
 
@@ -23,3 +23,13 @@ const addUsersToStore = (users) => {
   };
   return action;
 };
+
+export const searchUsers = (firstName) => {
+  const action = {
+    type: SEARCH_USERS,
+    payload:{
+      firstName
+    }
+  }
+  return action;
+}
