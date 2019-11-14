@@ -1,7 +1,6 @@
 import React from 'react';
-import Navbar from '../components/Navbar';
 
 const TestFunction = () => <div>
-    <Navbar />
+    for testing only
     </div>
 export default TestFunction;

@@ -4,8 +4,8 @@ import { withRouter } from 'react-router-dom';
 import './navbar.scss';
 
 const Navbar = (props) => {
-  const { match } = props;
-  const showBackArrow = match.url.includes('user');
+  const { location } = props;
+  const showBackArrow = location.pathname.includes('user');
 
   const handleIconClick = () => {
     if (showBackArrow) props.history.push('/');
