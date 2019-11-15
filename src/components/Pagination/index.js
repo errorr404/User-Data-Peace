@@ -6,10 +6,10 @@ import './pagination.scss';
 
 const Pagination = (props) => {
   const { totalItems, currentPage } = props;
-  const startingPage = currentPage>9 ? currentPage-currentPage%9 : currentPage;
-  console.log(startingPage);
+  const startingPage =
+    currentPage > 9 ? currentPage - (currentPage % 9) : currentPage;
   const [startingPageNumber, setStartingPageNumber] = useState(startingPage);
-  const [endingPageNumber, setEndingPageNumber] = useState(startingPage+8);
+  const [endingPageNumber, setEndingPageNumber] = useState(startingPage + 8);
 
   const setCurrentPageNumber = (number) => {
     props.updateCurrentPage(number);
@@ -46,7 +46,7 @@ const Pagination = (props) => {
   const renderPageNumbers = () => {
     let arr = [];
     for (let i = startingPageNumber; i <= endingPageNumber; i++) {
-      if (i > totalItems/5) break;
+      if (i > totalItems / 5) break;
       arr.push(i);
     }
     return arr.map((number) => (
@@ -55,6 +55,7 @@ const Pagination = (props) => {
           currentPage === number ? 'pagination__button__active' : ''
         }`}
         onClick={() => setCurrentPageNumber(number)}
+        key={number}
       >
         {number}
       </button>
@@ -69,9 +70,9 @@ const Pagination = (props) => {
   );
 };
 const mapStateToProps = (state) => {
-    return{
-        currentPage: state.currentPage,
-    }
-}
+  return {
+    currentPage: state.currentPage
+  };
+};
 
 export default connect(mapStateToProps, { updateCurrentPage })(Pagination);
