@@ -5,7 +5,7 @@ import axios from 'axios';
 export const fetchUsers = () => {
   return (dispatch) => {
     dispatch(updateLoadingStatus());
-    axios.get('http://demo8852110.mockable.io/users/').then((res) => {
+    axios.get('https://demo8852110.mockable.io/users/').then((res) => {
       dispatch(addUsersToStore([...res.data]));
       dispatch(updateLoadingStatus());
       dispatch(addError(null));
