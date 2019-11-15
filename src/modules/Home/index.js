@@ -11,8 +11,9 @@ class Home extends React.Component {
     if (this.props.users.length > 0) return;
     this.props.fetchUsers();
   }
-  updateCurrentPage = (updatePageBy) => {
+  updateCurrentPage = (updatePageBy,totalUser) => {
     let { currentPage } = this.props;
+    if(currentPage===1 || currentPage === totalUser) return;
 
     this.props.updateCurrentPage(currentPage + updatePageBy);
   };
@@ -41,13 +42,13 @@ class Home extends React.Component {
         <div className="home__navigation">
           <button
             className="home__navigation__button"
-            onClick={() => this.updateCurrentPage(-1)}
+            onClick={() => this.updateCurrentPage(-1, totalUser)}
           >
             Previous
           </button>
           <button
             className="home__navigation__button"
-            onClick={() => this.updateCurrentPage(1)}
+            onClick={() => this.updateCurrentPage(1,totalUser)}
           >
             Next
           </button>

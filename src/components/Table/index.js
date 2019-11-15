@@ -55,7 +55,7 @@ class Table extends React.Component {
                         className="tableStyle__icon"
                       />
                     )}
-                    <span>{header}</span>
+                    <span className="tableStyle__header">{header.split('_').join(" ")}</span>
                   </th>
                 )
             )}
@@ -63,7 +63,7 @@ class Table extends React.Component {
         </thead>
         <tbody>
           {rowData.map((row) => (
-            <tr onClick={() => this.props.history.push(`/user/${row.id}`)}>
+            <tr onClick={() => this.props.history.push(`/user/${row.id}`,{...row})}>
               {headers.map((header) => (
                 header!=='id' &&
                 <td className={header === 'web' ? 'tableStyle__link' : ''}>

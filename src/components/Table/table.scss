@@ -3,6 +3,7 @@
 .tableStyle {
   width: 100%;
   border-collapse: collapse;
+  font-size: 0.8rem;
   thead {
     background-color: $lightSkyBlue;
   }
@@ -25,5 +26,8 @@
   &__icon{
       font-size: 0.8rem;
       margin-right: 0.5rem;
+  }
+  &__header{
+    text-transform: capitalize;
   }
 }
