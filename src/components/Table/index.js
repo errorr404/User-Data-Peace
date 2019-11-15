@@ -39,8 +39,6 @@ class Table extends React.Component {
   render() {
     const { headers } = this.props;
     const { rowData, clickedRow } = this.state;
-    console.log(rowData);
-    console.log(this.props);
     return (
       <table className="tableStyle">
         <thead>
@@ -48,14 +46,16 @@ class Table extends React.Component {
             {headers.map(
               (header) =>
                 header !== 'id' && (
-                  <th onClick={() => this.sortBy(header)}>
+                  <th onClick={() => this.sortBy(header)} key={header.id}>
                     {clickedRow === header && (
                       <FontAwesomeIcon
                         icon="caret-down"
                         className="tableStyle__icon"
                       />
                     )}
-                    <span className="tableStyle__header">{header.split('_').join(" ")}</span>
+                    <span className="tableStyle__header">
+                      {header.split('_').join(' ')}
+                    </span>
                   </th>
                 )
             )}
@@ -63,13 +63,20 @@ class Table extends React.Component {
         </thead>
         <tbody>
           {rowData.map((row) => (
-            <tr onClick={() => this.props.history.push(`/user/${row.id}`,{...row})}>
-              {headers.map((header) => (
-                header!=='id' &&
-                <td className={header === 'web' ? 'tableStyle__link' : ''}>
-                  {row[header]}
-                </td>
-              ))}
+            <tr
+              onClick={() =>
+                this.props.history.push(`/user/${row.id}`, { ...row })
+              }
+              key={row.id}
+            >
+              {headers.map(
+                (header) =>
+                  header !== 'id' && (
+                    <td className={header === 'web' ? 'tableStyle__link' : ''}>
+                      {row[header]}
+                    </td>
+                  )
+              )}
             </tr>
           ))}
         </tbody>

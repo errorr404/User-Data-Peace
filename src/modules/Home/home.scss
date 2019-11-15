@@ -23,4 +23,7 @@
         display: flex;
         align-items: center;
     }
+    &__tableWrapper{
+        max-width: 100vw;
+    }
 }

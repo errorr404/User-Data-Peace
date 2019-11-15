@@ -6,7 +6,6 @@ const Search = (props) => {
   const [value, setValue] = useState('');
   const handleInput = (e) => {
     setValue(e.target.value);
-    console.log('here is value', value);
     props.searchUsers(e.target.value);
   };
   return (

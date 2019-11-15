@@ -5,7 +5,6 @@ const paginationReducer = (state = 1, action) => {
       case ADD_CURRENT_PAGE:
         return action.payload.currentPage;
       default:
-        console.log('default');
         return state;
     }
   };
