@@ -1,0 +1,25 @@
+.userDetails{
+    width: 100%;
+    margin-top: 2rem;
+    &__userName{
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin: 1rem 0;
+    }
+    &__detailsWrapper{
+        margin-top: 1rem;
+        &__item{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid grey;
+            padding-bottom: 0.5rem;
+            margin-bottom: 0.5rem;
+            &__itemName{
+                font-size: 0.8rem;
+                padding-right: 2rem;
+                padding-left: 0.5rem;
+            }
+        }
+    }
+}

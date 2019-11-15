@@ -1,0 +1,15 @@
+@import '../../variable.scss';
+.pagination{
+    display: flex;
+    width: 100%;
+    &__button{
+        border: 1px solid gray;
+        padding: 0.2rem;
+        background-color: $white;
+        flex: 1;
+        cursor: pointer;
+        &__active{
+            background-color: $primerySkyBlye;
+        }
+    }
+}

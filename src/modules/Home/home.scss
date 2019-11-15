@@ -1,0 +1,26 @@
+@import '../../variable.scss';
+.home{
+    &__navigation{
+        display: flex;
+        justify-content: space-between;
+        margin: 1rem 0;
+        &__button{
+            width: 7rem;
+            padding: 0.2rem;
+            border: 1px solid $primerySkyBlye;
+            border-radius: 1rem;
+            color: $primerySkyBlye;
+            background-color: $white;
+        }
+    }
+    &__loader{
+        display: flex;
+        height: 100vh;
+        align-items: center;
+        justify-content: center;
+    }
+    &__searchSection{
+        display: flex;
+        align-items: center;
+    }
+}
