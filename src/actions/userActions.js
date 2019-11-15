@@ -1,12 +1,13 @@
-import { ADD_USERS_TO_STATE, SEARCH_USERS } from '../constant';
+import { ADD_USERS_TO_STATE, SEARCH_USERS,SET_LOGIN } from '../constant';
 import { addError } from './errorAction';
 import axios from 'axios';
 
 export const fetchUsers = () => {
   return (dispatch) => {
+    dispatch(updateLoadingStatus());
     axios.get('http://demo8852110.mockable.io/users/').then((res) => {
       dispatch(addUsersToStore([...res.data]));
-      console.log(' im here');
+      dispatch(updateLoadingStatus());
       dispatch(addError(null));
     }).catch(err=>
         addError('something went wrong')  // it is not working :-- need reasearch 
@@ -23,6 +24,13 @@ const addUsersToStore = (users) => {
   };
   return action;
 };
+
+const updateLoadingStatus = () => {
+  const action = {
+    type: SET_LOGIN,
+  }
+  return action;
+}
 
 export const searchUsers = (firstName) => {
   const action = {

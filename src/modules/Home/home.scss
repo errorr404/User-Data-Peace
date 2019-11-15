@@ -13,4 +13,14 @@
             background-color: $white;
         }
     }
+    &__loader{
+        display: flex;
+        height: 100vh;
+        align-items: center;
+        justify-content: center;
+    }
+    &__searchSection{
+        display: flex;
+        align-items: center;
+    }
 }
