@@ -46,7 +46,7 @@ const Pagination = (props) => {
   const renderPageNumbers = () => {
     let arr = [];
     for (let i = startingPageNumber; i <= endingPageNumber; i++) {
-      if (i > totalItems) break;
+      if (i > totalItems/5) break;
       arr.push(i);
     }
     return arr.map((number) => (

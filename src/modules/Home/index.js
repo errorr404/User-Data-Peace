@@ -4,9 +4,9 @@ import { fetchUsers } from '../../actions/userActions';
 import { updateCurrentPage } from '../../actions/paginationAction';
 import Table from '../../components/Table';
 import Pagination from '../../components/Pagination';
-import './home.scss';
 import Search from '../../components/Search';
 import Loader from '../../components/Loader';
+import './home.scss';
 class Home extends React.Component {
   componentDidMount() {
     if (this.props.users.length > 0) return;
@@ -35,7 +35,6 @@ class Home extends React.Component {
       (currentPage - 1) * 5,
       (currentPage - 1) * 5 + 5
     );
-    console.log(slicedUser);
     return (
       <div className="home">
         {loadingUsersStatus ? (
@@ -53,7 +52,7 @@ class Home extends React.Component {
                 } of ${totalUser}`}
               </span>
             </div>
-            <div style={{ maxWidth: '100vw' }}>
+            <div className="home__tableWrapper">
               <Table
                 headers={Object.keys(slicedUser.length > 0 && slicedUser[0])}
                 rowData={slicedUser}
