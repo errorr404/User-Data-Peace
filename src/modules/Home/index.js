@@ -16,7 +16,10 @@ class Home extends React.Component {
     };
   }
   componentDidMount() {
-    if (this.props.users.length > 0) return;
+    if (this.props.users.length > 0) {
+      this.setState({users:this.props.users})
+      return
+    };
     this.props.fetchUsers();
   }
   componentDidUpdate(prevProps) {
