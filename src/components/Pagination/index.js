@@ -9,6 +9,7 @@ const Pagination = (props) => {
   const startingPage =
     currentPage > 9 ? currentPage - (currentPage % 9) : currentPage;
   const [startingPageNumber, setStartingPageNumber] = useState(startingPage);
+
   const [endingPageNumber, setEndingPageNumber] = useState(startingPage + 8);
 
   const setCurrentPageNumber = (number) => {
@@ -20,6 +21,7 @@ const Pagination = (props) => {
     setEndingPageNumber(endingPageNumber - 9);
   };
   const updateForwardButtonRange = () => {
+    if(endingPageNumber >= totalItems/5) return;
     setCurrentPageNumber(startingPageNumber + 9);
     setStartingPageNumber(startingPageNumber + 9);
     setEndingPageNumber(endingPageNumber + 9);
