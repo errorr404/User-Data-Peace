@@ -22,6 +22,10 @@
     &__searchSection{
         display: flex;
         align-items: center;
+        justify-content: space-between;
+        &__warning{
+            color: red;
+        }
     }
     &__tableWrapper{
         max-width: 100vw;

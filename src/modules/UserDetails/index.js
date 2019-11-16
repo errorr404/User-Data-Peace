@@ -12,7 +12,7 @@ const UserDetails = (props) => {
         {Object.keys(userData).map(
           (userKey) =>
             hideData.indexOf(userKey) === -1 && (
-              <div className="userDetails__detailsWrapper__item">
+              <div className="userDetails__detailsWrapper__item" key={userKey.id}>
                 <span className="userDetails__detailsWrapper__item__itemName">{userKey.split('_').join(" ")}</span>
                 <span className="userDetails__detailsWrapper__item__itemName">{userData[userKey]}</span>
               </div>
