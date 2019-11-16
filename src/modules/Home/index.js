@@ -8,27 +8,56 @@ import Search from '../../components/Search';
 import Loader from '../../components/Loader';
 import './home.scss';
 class Home extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      users: [],
+      searchedUsers: [],
+    };
+  }
   componentDidMount() {
     if (this.props.users.length > 0) return;
     this.props.fetchUsers();
+  }
+  componentDidUpdate(prevProps) {
+    const { users, searchedUsers } = this.props;
+    if (
+      prevProps.users !== users ||
+      prevProps.searchedUsers !== searchedUsers
+    ) {
+      this.setState({ users, searchedUsers });
+    }
   }
   updateCurrentPage = (updatePageBy, totalUser) => {
     let { currentPage } = this.props;
     if (
       (currentPage === 1 && updatePageBy === -1) ||
-      (currentPage === totalUser && updatePageBy === 1)
+      (currentPage >= totalUser/5 && updatePageBy === 1)
     )
       return;
 
     this.props.updateCurrentPage(currentPage + updatePageBy);
   };
+  compareBy = (key) => {
+    return function(a, b) {
+      if (a[key] < b[key]) return -1;
+      if (a[key] > b[key]) return 1;
+      return 0;
+    };
+  };
+
+  sortBy = (key) => {
+    const { searchedUsers, users } = this.state;
+    let arrayCopy = searchedUsers.length > 0 ? searchedUsers : users;
+    arrayCopy.sort(this.compareBy(key));
+    this.setState({
+      [searchedUsers.length > 0 ? searchedUsers : users]: arrayCopy
+    });
+  };
+
   render() {
-    const {
-      users,
-      currentPage,
-      searchedUsers,
-      loadingUsersStatus
-    } = this.props;
+    const { currentPage, loadingUsersStatus,errorMsg } = this.props;
+    const { users, searchedUsers } = this.state;
     const showUserResult = searchedUsers.length > 0 ? searchedUsers : users;
     const totalUser = showUserResult.length;
     const slicedUser = showUserResult.slice(
@@ -45,17 +74,21 @@ class Home extends React.Component {
         ) : (
           <React.Fragment>
             <div className="home__searchSection">
+              <div>
               <Search />
               <span>
                 {`${(currentPage - 1) * 5 + 1} - ${
                   totalUser > 5 ? (currentPage - 1) * 5 + 5 : totalUser
                 } of ${totalUser}`}
               </span>
+              </div>
+              {errorMsg && <span className="home__searchSection__warning">{`*${errorMsg}`}</span>}
             </div>
             <div className="home__tableWrapper">
               <Table
                 headers={Object.keys(slicedUser.length > 0 && slicedUser[0])}
                 rowData={slicedUser}
+                sortBy={this.sortBy}
               />
             </div>
             <div className="home__navigation">
@@ -84,7 +117,8 @@ const mapStateToProps = (state) => {
     users: state.users.allUsers,
     currentPage: state.currentPage,
     searchedUsers: state.users.searchedUsers,
-    loadingUsersStatus: state.users.loadingUsers
+    loadingUsersStatus: state.users.loadingUsers,
+    errorMsg: state.users.errorMsg,
   };
 };
 export default connect(mapStateToProps, { fetchUsers, updateCurrentPage })(

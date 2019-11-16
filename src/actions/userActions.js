@@ -1,5 +1,6 @@
 import { ADD_USERS_TO_STATE, SEARCH_USERS,SET_LOGIN } from '../constant';
 import { addError } from './errorAction';
+import { updateCurrentPage} from './paginationAction';
 import axios from 'axios';
 
 export const fetchUsers = () => {
@@ -33,6 +34,12 @@ const updateLoadingStatus = () => {
 }
 
 export const searchUsers = (firstName) => {
+  return (dispatch) => {
+    dispatch(searchUserInStore(firstName));
+    dispatch(updateCurrentPage(1))
+  }
+}
+const searchUserInStore = (firstName) => {
   const action = {
     type: SEARCH_USERS,
     payload:{

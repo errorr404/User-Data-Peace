@@ -21,19 +21,10 @@ class Table extends React.Component {
       this.setState({ rowData: this.props.rowData });
     }
   }
-  compareBy = (key) => {
-    return function(a, b) {
-      if (a[key] < b[key]) return -1;
-      if (a[key] > b[key]) return 1;
-      return 0;
-    };
-  };
-
-  sortBy = (key) => {
+  sortTable = (key) => {
+    const { sortBy } = this.props;
     this.setState({ clickedRow: key });
-    let arrayCopy = [...this.state.rowData];
-    arrayCopy.sort(this.compareBy(key));
-    this.setState({ rowData: arrayCopy });
+    sortBy(key);
   };
 
   render() {
@@ -46,7 +37,7 @@ class Table extends React.Component {
             {headers.map(
               (header) =>
                 header !== 'id' && (
-                  <th onClick={() => this.sortBy(header)} key={header.id}>
+                  <th onClick={() => this.sortTable(header)} key={header.id}>
                     {clickedRow === header && (
                       <FontAwesomeIcon
                         icon="caret-down"
